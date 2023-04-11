@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-07-15T18:13:33Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Fiberhome AN5516-06</template>
+            <name>Fiberhome AN5516-06</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>ONU</name>
+                </application>
+                <application>
+                    <name>System</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Memory HSWA</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.5875.800.3.9.8.1.1.6.9</snmp_oid>
+                    <key>cpuMemhswa</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>CPU Usage HSWA</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.5875.800.3.9.8.1.1.5.9</snmp_oid>
+                    <key>cpuUsagehswa</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>System Hardware Version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.4.0</snmp_oid>
+                    <key>sysHardVersion</key>
+                    <delay>1d</delay>
+                    <history>15d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Software Version</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.3.0</snmp_oid>
+                    <key>sysSoftVersion</key>
+                    <delay>1d</delay>
+                    <history>15d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System Temperature</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.4.5.0</snmp_oid>
+                    <key>sysTemperature</key>
+                    <delay>90s</delay>
+                    <history>15d</history>
+                    <units>°C</units>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(,10m)}&gt;55</expression>
+                            <name>System Temperature HIGH</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Card Info Table</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.2.1.1.2]</snmp_oid>
+                    <key>card.info.discovery</key>
+                    <lifetime>1w</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Card Available Ports Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>cardAvailablePorts.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>1d</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card CPU Util Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>cardCpuUtil.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>90s</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card Hardware Version Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>cardHardwareVersion.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card Mem Util Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.9.{#SNMPINDEX}</snmp_oid>
+                            <key>cardMemUtil.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>90s</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card Num of Ports Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>cardNumOfPorts.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>1d</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card Software Version Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>cardSoftwateVersion.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>1d</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card Status Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>cardStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>2m</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <description>Column Description:&#13;
+1:normal(1)&#13;
+2:communication interrupt(0)</description>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Card Type Slot [&quot;{#SNMPINDEX}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.2.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>cardType.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>1d</delay>
+                            <history>15d</history>
+                            <trends>90d</trends>
+                            <description>Column Description:&#13;
+260:EC2&#13;
+724:EC2-X&#13;
+16384:AC16&#13;
+the other type could see the card type table</description>
+                            <applications>
+                                <application>
+                                    <name>System</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>CPU/Mem SLOT  {#SNMPINDEX}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>Fiberhome AN5516-06</host>
+                                        <key>cardMemUtil.[&quot;{#SNMPINDEX}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Fiberhome AN5516-06</host>
+                                        <key>cardCpuUtil.[&quot;{#SNMPINDEX}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>ONU Info Table</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.3.3.1.2]</snmp_oid>
+                    <key>onuPonInfoTable</key>
+                    <delay>1d;1m/1-7,12:00-12:01</delay>
+                    <status>DISABLED</status>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>ONU Name {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>onuPonName.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>1d</delay>
+                            <history>15d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>ONU</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>ONU RX Power {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>onuPonRXOpticalPower.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>60d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>ONU</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>({TRIGGER.VALUE}=0 and {avg(10m)}&lt;-29) or&#13;
+({TRIGGER.VALUE}=1 and {avg(10m)}&lt;-29)</expression>
+                                    <name>ONU Sinal is low on {#SNMPVALUE}</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>ONU TX Power {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.3.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>onuPonTXOpticalPower.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>60d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>ONU</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>0.01</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Sinal ONU {#SNMPVALUE}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>005500</color>
+                                    <item>
+                                        <host>Fiberhome AN5516-06</host>
+                                        <key>onuPonTXOpticalPower.[&quot;{#SNMPINDEX}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>DD0000</color>
+                                    <item>
+                                        <host>Fiberhome AN5516-06</host>
+                                        <key>onuPonRXOpticalPower.[&quot;{#SNMPINDEX}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Pon Info Table</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.5875.800.3.9.3.4.1.2]</snmp_oid>
+                    <key>pon.info.discovery</key>
+                    <delay>5m</delay>
+                    <lifetime>7d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Number Of Authorized Onus [&quot;{#SNMPVALUE}&quot;]</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.5875.800.3.9.3.4.1.12.{#SNMPINDEX}</snmp_oid>
+                            <key>NumberOfAuthorizedOnus.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <applications>
+                                <application>
+                                    <name>ONU</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;=64</expression>
+                                    <name>PORTA PON CHEIA - [&quot;{#SNMPVALUE}&quot;]</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>System Temperature</name>
+            <graph_items>
+                <graph_item>
+                    <color>FF3333</color>
+                    <item>
+                        <host>Fiberhome AN5516-06</host>
+                        <key>sysTemperature</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

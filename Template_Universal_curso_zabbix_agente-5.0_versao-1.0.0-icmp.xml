@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-09-06T00:08:48Z</date>
+    <groups>
+        <group>
+            <name>Templates/Padrao</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</template>
+            <name>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</name>
+            <groups>
+                <group>
+                    <name>Templates/Padrao</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Descoberta global</name>
+                </application>
+                <application>
+                    <name>disco</name>
+                </application>
+                <application>
+                    <name>Informacoes da memoria do servidor</name>
+                </application>
+                <application>
+                    <name>Informacoes de disponibilidade</name>
+                </application>
+                <application>
+                    <name>Informacoes do agente zabbix</name>
+                </application>
+                <application>
+                    <name>Informacoes do sistema operacional</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Hostname do agent</name>
+                    <key>agent.hostname</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes do agente zabbix</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>ping  do agent</name>
+                    <key>agent.ping</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes do agente zabbix</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>versao do agent</name>
+                    <key>agent.version</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes do agente zabbix</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Disponibilidade</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping</key>
+                    <applications>
+                        <application>
+                            <name>Informacoes de disponibilidade</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#2)}&lt;&gt;1</expression>
+                            <name>O servidor {HOST.NAME} nao responde a ping!</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Perda de pacote</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingloss</key>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes de disponibilidade</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Tempo de resposta</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingsec</key>
+                    <value_type>FLOAT</value_type>
+                    <units>s</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes de disponibilidade</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Descoberta placa de rede</name>
+                    <key>net.if.discoveryy</key>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Descoberta global</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Quantidade de processos</name>
+                    <key>proc.num[]</key>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Descoberta cpu</name>
+                    <key>system.cpu.discoveryy</key>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Descoberta global</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>CPU em %</name>
+                    <key>system.cpu.util</key>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Hostname do sistema</name>
+                    <key>system.hostname</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Data e hora do sistema</name>
+                    <key>system.localtime</key>
+                    <delay>5m</delay>
+                    <units>unixtime</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{fuzzytime(10)}=0</expression>
+                            <name>A data e/ou hora do servidor {HOST.NAME} esta desatualizado!  {ITEM.VALUE]</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Arquitetura do sistema operacional</name>
+                    <key>system.sw.arch</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>system.swap.size</name>
+                    <key>system.swap.size</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Nome do sistema</name>
+                    <key>system.uname</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Tempo ligado do sistema</name>
+                    <key>system.uptime</key>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes do sistema operacional</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;10m</expression>
+                            <name>O servidor {HOST.NAME} foi reiniciado!</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>vfs.fs.discovery</name>
+                    <key>vfs.fs.discoveryy</key>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Descoberta global</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memoria avaliada</name>
+                    <key>vm.memory.size[available]</key>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memoria livre</name>
+                    <key>vm.memory.size[free]</key>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memoria avaliada em %</name>
+                    <key>vm.memory.size[pavailable]</key>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memoria usada em %</name>
+                    <key>vm.memory.size[pused]</key>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&gt;80</expression>
+                            <name>O uso da memoria no servidor {HOST.NAME} e muito alta!</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Memoria total</name>
+                    <key>vm.memory.size[total]</key>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memoria usada</name>
+                    <key>vm.memory.size[used]</key>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Informacoes da memoria do servidor</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descoberta LLD placas de rede</name>
+                    <key>net.if.discovery</key>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>Miniport|Packet|Layer|ISATAP|Loopback|Async|lo|Debug</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>0d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Trafego de entrada na {#IFNAME}</name>
+                            <key>net.if.in[&quot;{#IFNAME}&quot;,bytes]</key>
+                            <units>bps</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes da plada de rede {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Trafego de saida na {#IFNAME}</name>
+                            <key>net.if.out[&quot;{#IFNAME}&quot;,bytes]</key>
+                            <units>bps</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes da plada de rede {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Total do trafego da interface {#IFNAME}</name>
+                            <key>net.if.total[&quot;{#IFNAME}&quot;,bytes]</key>
+                            <units>bps</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes da plada de rede {#IFNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Informacoes da interface {#IFNAME}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>net.if.in[&quot;{#IFNAME}&quot;,bytes]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FFFF00</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>net.if.out[&quot;{#IFNAME}&quot;,bytes]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta LLD CPU</name>
+                    <key>system.cpu.discovery</key>
+                    <lifetime>0d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Informacoes de utilizacao da CPU {#CPU.NUMBER} em %</name>
+                            <key>system.cpu.util[&quot;{#CPU.NUMBER}&quot;,system]</key>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes da cpu {#CPU.NUMBER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;80</expression>
+                                    <name>O uso da CPU {#CPU.NUMBER} do servidor {HOST.NAME} esta muito alta! uso {ITEM.VALUE}</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Informacoes da CPU {#CPU.NUMBER} em %</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>system.cpu.util[&quot;{#CPU.NUMBER}&quot;,system]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Descoberta LLD discos do sistema</name>
+                    <key>vfs.fs.discovery</key>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#FSTYPE}</macro>
+                                <value>^(NTFS|ext)</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>0d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Espaco livre no dico {#FSNAME}</name>
+                            <key>vfs.fs.size[{#FSNAME},free]</key>
+                            <units>B</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes do disco {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Espaco livre no dico {#FSNAME} em %</name>
+                            <key>vfs.fs.size[{#FSNAME},pfree]</key>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes do disco {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Espaco usado no dico {#FSNAME} em %</name>
+                            <key>vfs.fs.size[{#FSNAME},pused]</key>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes do disco {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;80</expression>
+                                    <name>O espaco no disco {#FSNAME} do servidor {HOST.NAME} esta acabando! Valor {ITEM.VALUE}</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Espaco total no dico {#FSNAME}</name>
+                            <key>vfs.fs.size[{#FSNAME},total]</key>
+                            <units>B</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes do disco {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Espaco usado no dico {#FSNAME}</name>
+                            <key>vfs.fs.size[{#FSNAME},used]</key>
+                            <units>B</units>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Informacoes do disco {#FSNAME}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Informacoes do disco {#FSNAME}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>vfs.fs.size[{#FSNAME},free]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>vfs.fs.size[{#FSNAME},total]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>vfs.fs.size[{#FSNAME},used]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Informacoes do disco {#FSNAME} em %</name>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>vfs.fs.size[{#FSNAME},pfree]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>FFFF00</color>
+                                    <item>
+                                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                                        <key>vfs.fs.size[{#FSNAME},pused]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>1- Informacoes de memoria</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>vm.memory.size[total]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FF0000</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>vm.memory.size[free]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>2- Informacoes do processador em %</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>system.cpu.util</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>3- Temo ligado do sistema</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>system.uptime</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>4- quantidade de processos</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>proc.num[]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>5- Data e hora do sistema</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>system.localtime</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>6- Memoria usada em %</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>vm.memory.size[pused]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>7- Disponibilidade</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>icmpping</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>8- Perda de pacote</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>icmppingloss</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>9- Tempo de resposta</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template_Universal_curso_zabbix_agente-5.0_versao-1.0.0</host>
+                        <key>icmppingsec</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

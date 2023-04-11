@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-03-28T19:41:50Z</date>
+    <groups>
+        <group>
+            <name>OLT VSOL</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>OLT VSOL-EPON</template>
+            <name>OLT VSOL-EPON</name>
+            <templates>
+                <template>
+                    <name>Template Module Generic SNMPv2</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>OLT VSOL</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>AUTENTICADAS_PON</name>
+                </application>
+                <application>
+                    <name>info</name>
+                </application>
+                <application>
+                    <name>INTERFACE</name>
+                </application>
+                <application>
+                    <name>Network</name>
+                </application>
+                <application>
+                    <name>Net_status</name>
+                </application>
+                <application>
+                    <name>OFFLINE_PON</name>
+                </application>
+                <application>
+                    <name>ONLINE_PON</name>
+                </application>
+                <application>
+                    <name>ONU-GERAL</name>
+                </application>
+                <application>
+                    <name>RX-SIGNAL</name>
+                </application>
+                <application>
+                    <name>SINAL-ONU</name>
+                </application>
+                <application>
+                    <name>STATUS-ONU</name>
+                </application>
+                <application>
+                    <name>TemperaturaGBIC</name>
+                </application>
+                <application>
+                    <name>TOTAIS ONUs</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>USO DE CPU</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.3.0</snmp_oid>
+                    <key>CpuMtx</key>
+                    <delay>3m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Uso de Memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.4.0</snmp_oid>
+                    <key>memoryusage</key>
+                    <delay>3m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>info</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>ONUs OFFLINE</name>
+                    <type>DEPENDENT</type>
+                    <key>onu.offline</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <applications>
+                        <application>
+                            <name>TOTAIS ONUs</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>function qtd_clientes(json,status){
+     var count=0;
+     for (var index in json){
+       var statusONU = json[index][&quot;{#STATUS}&quot;];
+       
+       if (statusONU == status){
+         count+=1;
+       }
+     }
+     return count;
+}
+
+var file = JSON.parse(value);
+/* {#STATUS} 1 - UP | 0 - DOWN | -1 - INVALID */
+var json = qtd_clientes(file,0);
+return JSON.stringify(json);</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>qtd.onu</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>ONUs ONLINE</name>
+                    <type>DEPENDENT</type>
+                    <key>onu.online</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <applications>
+                        <application>
+                            <name>TOTAIS ONUs</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>function qtd_clientes(json,status){
+     var count=0;
+     for (var index in json){
+       var statusONU = json[index][&quot;{#STATUS}&quot;];
+       
+       if (statusONU == status){
+         count+=1;
+       }
+     }
+     return count;
+}
+
+var file = JSON.parse(value);
+/* {#STATUS} 1 - UP | 2 - DOWN | -1 - INVALID */
+var json = qtd_clientes(file,1);
+return JSON.stringify(json);</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>qtd.onu</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>QUANTIDADE ONUS</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#STATUS}, 1.3.6.1.4.1.37950.1.1.5.12.1.25.1.4]</snmp_oid>
+                    <key>qtd.onu</key>
+                    <delay>30m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>ONU-GERAL</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>TOTAL ONUs</name>
+                    <type>CALCULATED</type>
+                    <key>total.onu</key>
+                    <delay>30s</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <params>last(onu.offline,0) + last(onu.online,0)</params>
+                    <applications>
+                        <application>
+                            <name>TOTAIS ONUs</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.5.8.0</snmp_oid>
+                    <key>uptime</key>
+                    <delay>2m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>info</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Temperatura GBIC</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFOPERSTATUS},1.3.6.1.2.1.2.2.1.8,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.4.1.37950.1.1.5.10.1.2.1.1.2,{#IFDESCR},1.3.6.1.2.1.2.2.1.2,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>gbic.dicovery</key>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>.*PON</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>3d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.13.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>tempgbic.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>°C</units>
+                            <applications>
+                                <application>
+                                    <name>TemperaturaGBIC</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(\d+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>INTERFACE EPON</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#EPONNAME},1.3.6.1.4.1.37950.1.1.5.10.1.2.1.1.2]</snmp_oid>
+                    <key>interfaces.epon</key>
+                    <delay>1h</delay>
+                    <lifetime>7d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#EPONNAME}</name>
+                            <type>CALCULATED</type>
+                            <key>onu.off.epon[{#EPONNAME}]</key>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <params>last(onus.online.epon[{#EPONNAME}],0) - last(onus.provisionadas[{#EPONNAME}],0)</params>
+                            <applications>
+                                <application>
+                                    <name>OFFLINE_PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>(\d+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#EPONNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>onus.online.epon[{#EPONNAME}]</key>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>ONLINE_PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#EPONNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>onus.provisionadas[{#EPONNAME}]</key>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>AUTENTICADAS_PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{OLT VSOL-EPON:onus.provisionadas[{#EPONNAME}].last()}&gt;3 and {OLT VSOL-EPON:onus.online.epon[{#EPONNAME}].last()}&lt;3 and {OLT VSOL-EPON:onu.off.epon[{#EPONNAME}].last()}&gt;3</expression>
+                            <name>Queda massiva detecada em {#EPONNAME}</name>
+                            <priority>AVERAGE</priority>
+                            <tags>
+                                <tag>
+                                    <tag>QUEDA_PON</tag>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Network interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFOPERSTATUS},1.3.6.1.2.1.2.2.1.8,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFDESCR},1.3.6.1.2.1.2.2.1.2,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>net.if.discovery</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>EPON\d{1}\/\d$</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>GE\d{1}\/\d$</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFOPERSTATUS}</macro>
+                                <value>(1|2|3|4|5|7)</value>
+                                <formulaid>C</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Trafego de Entrada na Interface {#IFNAME}({#IFALIAS})</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Trafego de Saida na Interface {#IFNAME}({#IFALIAS})</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.16.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Network</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status da interface  {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.status[ifOperStatus.{#SNMPINDEX}]</key>
+                            <history>10d</history>
+                            <trends>30d</trends>
+                            <applications>
+                                <application>
+                                    <name>Net_status</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=2 and {diff()}=1</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}&lt;&gt;2</recovery_expression>
+                                    <name>Interface {#IFNAME}: Link down</name>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>PORTA_OFF_PON</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>

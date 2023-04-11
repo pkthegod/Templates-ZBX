@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-11-25T11:11:49Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template V-Solution  - OLT Epon</template>
+            <name>Template V-Solution  - OLT Epon</name>
+            <templates>
+                <template>
+                    <name>Template Module ICMP Ping</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Genérico</name>
+                </application>
+                <application>
+                    <name>Interfaces PON</name>
+                </application>
+                <application>
+                    <name>Interfaces UP Link</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Utilização da CPU na OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.37950.1.1.5.10.12.3.0</snmp_oid>
+                    <key>system.cpu</key>
+                    <delay>10m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <status>DISABLED</status>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(20m)}&gt;70</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{avg(20m)}&lt;70</recovery_expression>
+                            <name>ALTO CONSUMO DE CPU</name>
+                            <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                            <status>DISABLED</status>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Firmware da OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.5.4.0</snmp_oid>
+                    <key>system.firmware</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff()}=1 and {strlen()}&gt;0</expression>
+                            <name>O FIRMWARE FOI ALTERADO</name>
+                            <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Mac Address da OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.37950.1.1.5.10.9.4.1.4.0</snmp_oid>
+                    <key>system.mac</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff()}=1 and {strlen()}&gt;0</expression>
+                            <name>O EQUIPAMENTO FOI SUBSTITUÍDO</name>
+                            <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Utilização da Memória na OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.37950.1.1.5.10.12.4.0</snmp_oid>
+                    <key>system.memory</key>
+                    <delay>10m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <status>DISABLED</status>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(20m)}&gt;70</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{avg(20m)}&lt;70</recovery_expression>
+                            <name>ALTO CONSUMO DE MEMORIA</name>
+                            <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                            <status>DISABLED</status>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Descrição da OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.2.1.1.5.0</snmp_oid>
+                    <key>system.name</key>
+                    <delay>1d</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Temperatura da OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.4.1.37950.1.1.5.10.12.5.9.0</snmp_oid>
+                    <key>system.temp</key>
+                    <delay>10m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>°</units>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Uptime da OLT</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>iso.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>system.uptime</key>
+                    <delay>10m</delay>
+                    <history>30d</history>
+                    <trends>90d</trends>
+                    <status>DISABLED</status>
+                    <units>uptime</units>
+                    <applications>
+                        <application>
+                            <name>Genérico</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.01</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1)} &lt; {last(#2)}</expression>
+                            <name>O DISPOSITIVO FOI REINICIADO</name>
+                            <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Discovery de Porta SFP</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#NOMESFP},1.3.6.1.4.1.37950.1.1.5.10.1.2.1.1.2]</snmp_oid>
+                    <key>discovery.sfp</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Corrente do Modulo SFP {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.13.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>corrente.[{#NOMESFP}]</key>
+                            <delay>1h</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Trafego Enviado da {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.1.2.2.1.45.{#SNMPINDEX}</snmp_oid>
+                            <key>enviado.[{#NOMESFP}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Quantidade de ONU na {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>quantidadedeonu.[{#NOMESFP}]</key>
+                            <delay>1h</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#1)}&gt;{last(#2)} and {last(#1)}&gt;=55 and {last(#2)}&gt;=55</expression>
+                                    <name>A {#NOMESFP} ESTÁ COM MAIS DE 55 ONU</name>
+                                    <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Quantidade de ONU ONLINE na {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>quantidadedeonuonline.[{#NOMESFP}]</key>
+                            <delay>1h</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Trafego Recebido da {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.1.2.2.1.44.{#SNMPINDEX}</snmp_oid>
+                            <key>recebido.[{#NOMESFP}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Sinal de Saída do Modulo SFP {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.13.1.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>sinal.[{#NOMESFP}]</key>
+                            <delay>1h</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status do Modulo SFP {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.1.2.3.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>status.[{#NOMESFP}]</key>
+                            <delay>10m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#2)}=1 and {last(#1)}&lt;&gt;1</expression>
+                                    <name>O MODULO SFP DA {#NOMESFP}: LINK DOWN (NENHUM CLIENTE)</name>
+                                    <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Temperatura do Modulo SFP {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.13.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>temperatura.[{#NOMESFP}]</key>
+                            <delay>1h</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Voltagem do Modulo SFP {#NOMESFP}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.13.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>voltagem.[{#NOMESFP}]</key>
+                            <delay>1h</delay>
+                            <history>30d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <applications>
+                                <application>
+                                    <name>Interfaces PON</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Quantidade de ONU na {#NOMESFP}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>FF8000</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>quantidadedeonu.[{#NOMESFP}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>388E3C</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>quantidadedeonuonline.[{#NOMESFP}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Trafego da SFP {#NOMESFP}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0080FF</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>enviado.[{#NOMESFP}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>2E7D32</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>recebido.[{#NOMESFP}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Discovery de Porta Uplink</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#NOMEUPLINK},1.3.6.1.4.1.37950.1.1.5.10.1.1.1.1.2]</snmp_oid>
+                    <key>discovery.uplink</key>
+                    <delay>1h</delay>
+                    <status>DISABLED</status>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Pacotes de Entrada Descartados {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in.discards[ifInDiscards.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pacotes de Entrada Com Erros {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in.errors[ifInErrors.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Bits Recebidos da {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pacotes de Saída Descartados {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.19.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out.discards[ifOutDiscards.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pacotes de Saída Com Erros {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out.errors[ifOutErrors.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Bits Enviados da {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.Out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <params>8</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Status do Uplink {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.1.1.3.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>status.[{#NOMEUPLINK}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#2)}=1 and {last(#1)}&lt;&gt;1</expression>
+                                    <name>Interface {#NOMEUPLINK}: LINK DOWN</name>
+                                    <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Tipo da Interface {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>tipo.[{#NOMEUPLINK}]</key>
+                            <delay>1d</delay>
+                            <history>30d</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Velocidade da Porta UP Link {#NOMEUPLINK}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.1.1.3.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>velocidade.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>30d</history>
+                            <units>bps</units>
+                            <applications>
+                                <application>
+                                    <name>Interfaces UP Link</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>-
+0</params>
+                                </step>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>1000M Full
+1000000000</params>
+                                </step>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>1000M Half
+1000000000</params>
+                                </step>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>100M Half
+100000000</params>
+                                </step>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <params>100M Full
+100000000</params>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#1)}&lt;&gt;1000000000 and {last(#1)}&gt;0</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last(#1)}=1000000000 and {last(#1)}&gt;0</recovery_expression>
+                                    <name>Interface {#NOMEUPLINK} - PORTA NÃO ESTÁ GIGABIT</name>
+                                    <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{diff()}=1 and {last(#1)}&lt;&gt;0</expression>
+                                    <name>Interface {#NOMEUPLINK} - VELOCIDADE DA PORTA MUDOU</name>
+                                    <opdata>Atual: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Interface {#NOMEUPLINK}: Trafego</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0080FF</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>net.if.Out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>2E7D32</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>FFEB3B</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>net.if.in.discards[ifInDiscards.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>E64A19</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>net.if.out.discards[ifOutDiscards.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>BF00FF</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>net.if.in.errors[ifInErrors.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>5</sortorder>
+                                    <color>C62828</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>Template V-Solution  - OLT Epon</host>
+                                        <key>net.if.out.errors[ifOutErrors.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>CPU e Memoria da OLT</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>388E3C</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Template V-Solution  - OLT Epon</host>
+                        <key>system.cpu</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>FF8000</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Template V-Solution  - OLT Epon</host>
+                        <key>system.memory</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Temperatura da OLT</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>388E3C</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Template V-Solution  - OLT Epon</host>
+                        <key>system.temp</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
